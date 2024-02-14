@@ -5,6 +5,7 @@ import pygame as pg
 
 
 class Game:
+    """Класс для работы с pygame."""
     def __init__(self, screen_width: int = 480,
                  screen_height: int = 720) -> None:
         """Инициализация объекта игры."""
@@ -25,7 +26,7 @@ class Game:
         self.__game_run: bool = True
 
     def __del__(self) -> None:
-        """Очистка памяти по итогу работы"""
+        """Очистка памяти по итогу работы."""
         pg.quit()
 
     def run(self) -> None:
@@ -40,22 +41,22 @@ class Game:
             self.__clock.tick(self.__fps)
 
     def __check_events(self) -> None:
-        """Проверка событий в игровом цикле"""
+        """Проверка событий в игровом цикле."""
         event: pg.event.Event
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.__game_run = False
 
     def __move(self) -> None:
-        """Движение игрока"""
+        """Движение игрока."""
         pass
 
     def __check_logic(self) -> None:
-        """Игровая логика"""
+        """Игровая логика."""
         pass
 
     def __draw(self) -> None:
-        """Рисование всех объектов"""
+        """Рисование всех объектов."""
 
         self.__screen.fill(self.__color_bg)
 
