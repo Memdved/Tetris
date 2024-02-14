@@ -1,7 +1,7 @@
 """Файл для работы с pygame"""
 
 
-import pygame as pg
+from random import choice
 from objects import *
 
 
@@ -37,7 +37,7 @@ class Game:
                              for y in range(self.__size[1])
                              ]
         # Создание фигуры
-        self.__figure = FigureL(self.__size[0])
+        self.__figure = FigureJ(self.__size[0])
 
     def __del__(self) -> None:
         """Очистка памяти по итогу работы."""
