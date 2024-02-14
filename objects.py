@@ -17,6 +17,14 @@ class Figures:
             (self.image_width, self.image_height)
         )
 
+    def change_color(self):
+        color: int = randint(0, 4)
+
+        self.sprite = pg.transform.scale(
+            pg.image.load(f"sprites/block{color}.png").convert(),
+            (self.image_width, self.image_height)
+        )
+
 
 class FigureO(Figures):
     __pos: list[
@@ -29,6 +37,7 @@ class FigureO(Figures):
     def __init__(self, w):
         super().__init__()
 
+        self.change_color()
         self.__figure = [pg.Rect(x + w // 2, y + 1, 1, 1) for x, y in self.__pos]
         self.__figure_rect = self.sprite.get_rect()
 
@@ -47,13 +56,14 @@ class FigureI(Figures):
         tuple[int, int]
     ] = [(-1, -1), (-2, -1), (0, -1), (1, -1)]
 
-    def __init__(self, w):
+    def __init__(self, w: int) -> None:
         super().__init__()
 
+        self.change_color()
         self.__figure = [pg.Rect(x + w // 2, y + 1, 1, 1) for x, y in self.__pos]
         self.__figure_rect = self.sprite.get_rect()
 
-    def draw_figure(self, sc: pg.Surface, tile):
+    def draw_figure(self, sc: pg.Surface, tile: int) -> None:
         for _ in range(4):
             self.__figure_rect.x = self.__figure[_].x * tile
             self.__figure_rect.y = self.__figure[_].y * tile
@@ -68,13 +78,14 @@ class FigureS(Figures):
         tuple[int, int]
     ] = [(0, 0), (-1, -1), (-1, 0), (0, 1)]
 
-    def __init__(self, w):
+    def __init__(self, w: int) -> None:
         super().__init__()
 
+        self.change_color()
         self.__figure = [pg.Rect(x + w // 2, y + 1, 1, 1) for x, y in self.__pos]
         self.__figure_rect = self.sprite.get_rect()
 
-    def draw_figure(self, sc: pg.Surface, tile):
+    def draw_figure(self, sc: pg.Surface, tile: int) -> None:
         for _ in range(4):
             self.__figure_rect.x = self.__figure[_].x * tile
             self.__figure_rect.y = self.__figure[_].y * tile
@@ -89,17 +100,19 @@ class FigureZ(Figures):
         tuple[int, int]
     ] = [(-1, 0), (0, 0), (-1, 1), (0, -1)]
 
-    def __init__(self, w):
+    def __init__(self, w: int) -> None:
         super().__init__()
 
+        self.change_color()
         self.__figure = [pg.Rect(x + w // 2, y + 1, 1, 1) for x, y in self.__pos]
         self.__figure_rect = self.sprite.get_rect()
 
-    def draw_figure(self, sc: pg.Surface, tile):
+    def draw_figure(self, sc: pg.Surface, tile: int) -> None:
         for _ in range(4):
             self.__figure_rect.x = self.__figure[_].x * tile
             self.__figure_rect.y = self.__figure[_].y * tile
             sc.blit(self.sprite, (self.__figure_rect.x, self.__figure_rect.y))
+
 
 class FigureT(Figures):
     __pos: list[
@@ -109,13 +122,14 @@ class FigureT(Figures):
         tuple[int, int]
     ] = [(0, 0), (-1, 0), (0, -1), (0, 1)]
 
-    def __init__(self, w):
+    def __init__(self, w: int) -> None:
         super().__init__()
 
+        self.change_color()
         self.__figure = [pg.Rect(x + w // 2, y + 1, 1, 1) for x, y in self.__pos]
         self.__figure_rect = self.sprite.get_rect()
 
-    def draw_figure(self, sc: pg.Surface, tile):
+    def draw_figure(self, sc: pg.Surface, tile: int) -> None:
         for _ in range(4):
             self.__figure_rect.x = self.__figure[_].x * tile
             self.__figure_rect.y = self.__figure[_].y * tile
@@ -130,13 +144,14 @@ class FigureL(Figures):
         tuple[int, int]
     ] = [(0, 0), (-1, -1), (0, -1), (0, 1)]
 
-    def __init__(self, w):
+    def __init__(self, w: int) -> None:
         super().__init__()
 
+        self.change_color()
         self.__figure = [pg.Rect(x + w // 2, y + 1, 1, 1) for x, y in self.__pos]
         self.__figure_rect = self.sprite.get_rect()
 
-    def draw_figure(self, sc: pg.Surface, tile):
+    def draw_figure(self, sc: pg.Surface, tile) -> None:
         for _ in range(4):
             self.__figure_rect.x = self.__figure[_].x * tile
             self.__figure_rect.y = self.__figure[_].y * tile
@@ -151,15 +166,15 @@ class FigureJ(Figures):
         tuple[int, int]
     ] = [(0, 0), (1, -1), (0, -1), (0, 1)]
 
-    def __init__(self, w):
+    def __init__(self, w: int) -> None:
         super().__init__()
 
+        self.change_color()
         self.__figure = [pg.Rect(x + w // 2, y + 1, 1, 1) for x, y in self.__pos]
         self.__figure_rect = self.sprite.get_rect()
 
-    def draw_figure(self, sc: pg.Surface, tile):
+    def draw_figure(self, sc: pg.Surface, tile: int) -> None:
         for _ in range(4):
             self.__figure_rect.x = self.__figure[_].x * tile
             self.__figure_rect.y = self.__figure[_].y * tile
             sc.blit(self.sprite, (self.__figure_rect.x, self.__figure_rect.y))
-
