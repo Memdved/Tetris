@@ -5,8 +5,8 @@ import pygame as pg
 
 
 class Game:
-    def __init__(self, screen_width: int = 720,
-                 screen_height: int = 480) -> None:
+    def __init__(self, screen_width: int = 480,
+                 screen_height: int = 720) -> None:
         """Инициализация объекта игры."""
         pg.init()
 
