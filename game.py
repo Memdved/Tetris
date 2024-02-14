@@ -2,6 +2,7 @@
 
 
 import pygame as pg
+from objects import *
 
 
 class Game:
@@ -35,6 +36,8 @@ class Game:
                              for x in range(self.__size[0])
                              for y in range(self.__size[1])
                              ]
+
+        self.__figure = FigureO(self.__size[0])
 
     def __del__(self) -> None:
         """Очистка памяти по итогу работы."""
@@ -71,6 +74,8 @@ class Game:
 
         self.__screen.fill(self.__color_bg)
         [pg.draw.rect(self.__screen, (40, 40, 40), i_rect, 1) for i_rect in self.__grid]
+
+        self.__figure.draw_figure(self.__screen, self.__tile)
 
         pg.display.flip()
         self.__clock.tick(self.__fps)
