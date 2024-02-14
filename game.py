@@ -7,9 +7,12 @@ import pygame as pg
 class Game:
     """Класс для работы с pygame."""
     def __init__(self, screen_width: int = 480,
-                 screen_height: int = 720) -> None:
+                 screen_height: int = 720, w: int = 10, h: int = 15) -> None:
         """Инициализация объекта игры."""
         pg.init()
+
+        self.__tile: int = 48
+        self.__size: tuple = (w, h)
 
         self.__screen_width: int = screen_width
         self.__screen_height: int = screen_height
@@ -24,6 +27,14 @@ class Game:
         self.__fps: int = 60
         self.__clock: pg.time.Clock = pg.time.Clock()
         self.__game_run: bool = True
+
+        self.__grid: list = [pg.Rect(x * self.__tile,
+                                     y * self.__tile,
+                                     self.__tile,
+                                     self.__tile)
+                             for x in range(self.__size[0])
+                             for y in range(self.__size[1])
+                             ]
 
     def __del__(self) -> None:
         """Очистка памяти по итогу работы."""
@@ -59,6 +70,7 @@ class Game:
         """Рисование всех объектов."""
 
         self.__screen.fill(self.__color_bg)
+        [pg.draw.rect(self.__screen, (40, 40, 40), i_rect, 1) for i_rect in self.__grid]
 
         pg.display.flip()
         self.__clock.tick(self.__fps)
