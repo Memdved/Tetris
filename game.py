@@ -18,7 +18,7 @@ class Game:
                  self.__screen_height)
             )
 
-        self.__color_bg: tuple[int, int, int] = (255, 255, 255)
+        self.__color_bg: tuple[int, int, int] = (0, 0, 0)  # Черный цвет
 
         self.__fps: int = 60
         self.__clock: pg.time.Clock = pg.time.Clock()
@@ -56,4 +56,8 @@ class Game:
 
     def __draw(self) -> None:
         """Рисование всех объектов"""
-        pass
+
+        self.__screen.fill(self.__color_bg)
+
+        pg.display.flip()
+        self.__clock.tick(self.__fps)

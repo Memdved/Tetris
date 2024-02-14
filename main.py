@@ -1,10 +1,14 @@
 """Основной исполняемый файл"""
 
 
+from game import Game
+
+
 def main() -> None:
     """Исполняемая функция"""
 
-    pass
+    game = Game()
+    game.run()
 
 
 if __name__ == "__main__":
