@@ -36,8 +36,8 @@ class Game:
                              for x in range(self.__size[0])
                              for y in range(self.__size[1])
                              ]
-
-        self.__figure = FigureS(self.__size[0])
+        # Создание фигуры
+        self.__figure = FigureT(self.__size[0])
 
     def __del__(self) -> None:
         """Очистка памяти по итогу работы."""
