@@ -35,7 +35,7 @@ class Figures:
         self.dx = 0
 
         self.__frame_count = 0
-        self.frame_limit = 30
+        self.frame_limit = 5
         self.__dy = 1
 
     def __check_borders_x(self, i):
@@ -51,20 +51,19 @@ class Figures:
     def move_figure(self, field):
         figure_old = deepcopy(self.__figure)
         self.__frame_count += 1
-
         for i in range(4):
-            self.__figure[i].x += self.dx
-
-            if self.__frame_count % self.frame_limit == 1:
-                self.__figure[i].y += self.__dy
-
             if self.__check_borders_y(i, field):
                 new_field = self.__change_figure(field)
                 self.__frame_count = 0
                 return new_field
 
+            elif self.__frame_count % self.frame_limit == 1:
+                self.__figure[i].y += self.__dy
+
+            self.__figure[i].x += self.dx
             if not self.__check_borders_x(i):
                 self.__figure = deepcopy(figure_old)
+                break
 
         self.__frame_count += 1
         self.dx = 0

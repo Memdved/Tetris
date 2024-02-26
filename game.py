@@ -3,7 +3,6 @@
 
 from objects import Figures
 import pygame as pg
-import pandas as pd
 
 
 class Game:
@@ -15,6 +14,9 @@ class Game:
 
         self.__tile: int = 48
         self.__size: tuple = (w, h)
+
+        self.__h = h
+        self.__w = w
 
         self.__screen_width: int = screen_width
         self.__screen_height: int = screen_height
@@ -43,9 +45,6 @@ class Game:
         # Создание фигуры
         self.__figure = Figures(w, h)
 
-        df = pd.DataFrame(self.field)
-        print(df)
-
     def __del__(self) -> None:
         """Очистка памяти по итогу работы."""
         pg.quit()
@@ -56,6 +55,7 @@ class Game:
         while self.__game_run:
             self.__check_events()
             self.__move()
+            self.__check_logic()
             self.__draw()
 
             self.__clock.tick(self.__fps)
@@ -72,10 +72,10 @@ class Game:
                 elif event.key == pg.K_RIGHT:
                     self.__figure.dx = 1
                 elif event.key == pg.K_DOWN:
-                    self.__figure.frame_limit = 2
+                    self.__figure.frame_limit = 5
             elif event.type == pg.KEYUP:
                 if event.key == pg.K_DOWN:
-                    self.__figure.frame_limit = 30
+                    self.__figure.frame_limit = 5
 
     def __move(self) -> None:
         """Движение игрока."""
