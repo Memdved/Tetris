@@ -1,8 +1,9 @@
 """Файл для работы с pygame"""
 
 
-from random import choice
-from objects import *
+from objects import Figures
+import pygame as pg
+import pandas as pd
 
 
 class Game:
@@ -25,7 +26,7 @@ class Game:
 
         self.__color_bg: tuple[int, int, int] = (0, 0, 0)  # Черный цвет
 
-        self.__fps: int = 60
+        self.__fps: int = 30
         self.__clock: pg.time.Clock = pg.time.Clock()
         self.__game_run: bool = True
 
@@ -36,14 +37,14 @@ class Game:
                              for x in range(self.__size[0])
                              for y in range(self.__size[1])
                              ]
+
+        self.field = [[0 for i in range(w)] for j in range(h)]
+
         # Создание фигуры
-        self.__figure = choice([FigureO(self.__size[0]),
-                               FigureI(self.__size[0]),
-                               FigureS(self.__size[0]),
-                               FigureZ(self.__size[0]),
-                               FigureT(self.__size[0]),
-                               FigureL(self.__size[0])]
-                               )
+        self.__figure = Figures(w, h)
+
+        df = pd.DataFrame(self.field)
+        print(df)
 
     def __del__(self) -> None:
         """Очистка памяти по итогу работы."""
@@ -55,7 +56,6 @@ class Game:
         while self.__game_run:
             self.__check_events()
             self.__move()
-            self.__check_logic()
             self.__draw()
 
             self.__clock.tick(self.__fps)
@@ -66,14 +66,20 @@ class Game:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.__game_run = False
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_LEFT:
+                    self.__figure.dx = -1
+                elif event.key == pg.K_RIGHT:
+                    self.__figure.dx = 1
+                elif event.key == pg.K_DOWN:
+                    self.__figure.frame_limit = 2
+            elif event.type == pg.KEYUP:
+                if event.key == pg.K_DOWN:
+                    self.__figure.frame_limit = 30
 
     def __move(self) -> None:
         """Движение игрока."""
-        pass
-
-    def __check_logic(self) -> None:
-        """Игровая логика."""
-        pass
+        self.field = self.__figure.move_figure(self.field)
 
     def __draw(self) -> None:
         """Рисование всех объектов."""
@@ -82,6 +88,12 @@ class Game:
         [pg.draw.rect(self.__screen, (40, 40, 40), i_rect, 1) for i_rect in self.__grid]
 
         self.__figure.draw_figure(self.__screen, self.__tile)
+
+        for y, raw in enumerate(self.field):
+            for x, col in enumerate(raw):
+                if col != 0:
+                    self.__figure.figure_rect.x, self.__figure.figure_rect.y = x * self.__tile, y * self.__tile
+                    self.__screen.blit(col, (self.__figure.figure_rect.x, self.__figure.figure_rect.y))
 
         pg.display.flip()
         self.__clock.tick(self.__fps)
